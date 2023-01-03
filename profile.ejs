@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>Profile</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
+
+    var s3Client = new AmazonS3Client(Amazon.RegionEndpoint.USEast2);
+</script>
+
+
+<style>
+    /* Set black background color, white text and some padding */
+
+    @import url('https://fonts.googleapis.com/css?family=Poppins');
+    @import url('https://fonts.googleapis.com/css?family=Pacifico');
+    @import url('https://fonts.googleapis.com/css?family=Inter');
+    @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
+
+
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background-color: #f3f6fd;
+    }
+
+
+    h1 {
+        font-family: DM Sans, 400;
+        color: black;
+    }
+
+    h2 {
+        font-family: DM Sans;
+        font-size: 20px;
+        font-weight: 10px;
+        text-align: left;
+        color: black
+    }
+
+
+    h4 {
+        font-family: DM Sans, 400;
+        font-weight: 700px;
+        font-size: 30px;
+        text-align: left;
+        color: black
+    }
+
+    .wrapper {
+        width: 100%;
+        height: 30%;
+    }
+
+    .label {
+        font-size: .625rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: +1.3px;
+        margin-bottom: 1rem;
+    }
+
+    .searchBar {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #searchQueryInput {
+        width: 100%;
+        height: 4rem;
+        background: #f5f5f5;
+        outline: none;
+        border: none;
+        border-radius: 1.625rem;
+        padding: 0 3.5rem 0 2rem;
+        font-size: 2rem;
+        vertical-align: center;
+    }
+
+    #searchQuerySubmit {
+        margin-left: -10rem;
+        background: none;
+        border: none;
+        outline: none;
+        vertical-align: center;
+    }
+
+    .glyphicon.glyphicon-circle-arrow-right {
+        font-size: 20px;
+        margin-top: 20px;
+        padding-left: 40px;
+    }
+
+    #searchQuerySubmit:hover {
+        cursor: pointer;
+    }
+
+    .jumbotron {
+        font-family: DM Sans, 400;
+        margin: 0 auto;
+        border-radius: 10px;
+        border-color: black;
+        background-color: rgba(255, 255, 255, 0.823);
+        padding: 10px;
+        padding-bottom: 0;
+    }
+
+    .navbar {
+        font-family: DM Sans, 00;
+        font-size: medium;
+    }
+
+    .navbar-brand {
+        font-family: DM Sans, 400;
+        font-size: larger;
+        font-weight: 700
+    }
+
+
+
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .row {
+        margin: 0;
+        padding: 0;
+        height: 10%
+    }
+
+    .info-spread {
+        font-family: "Source Sans Pro", 400;
+        margin: 0 auto;
+        border-radius: 10px;
+        border-color: black;
+        background-color: rgba(240, 240, 240, 0.823);
+        padding: 10px;
+        box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.369);
+    }
+
+    .portofolio {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        text-align: center;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+
+    .navbar-form {
+        border-radius: 10px;
+
+
+    }
+
+    img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%
+    }
+
+    #main {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        box-shadow: 10px;
+
+
+    }
+
+    /* Profile section*/
+    #my-profile {
+        text-align: center;
+        margin-bottom: 30px;
+        height: 10%
+    }
+
+    #profile {
+        width: 80%;
+        height: 10%;
+        margin: 0 auto;
+        margin-top: 30px;
+        background-color: rgb(196, 219, 232);
+        text-align: left;
+        padding-left: 9%;
+        border-radius: 10px;
+        position: relative;
+        text-align: center;
+    }
+
+    #description {
+        width: 80%;
+        height: 10%;
+        margin: 0 auto;
+        margin-top: 30px;
+        text-align: center;
+        padding-left: 8%;
+        border-radius: 10px;
+        position: relative;
+    }
+
+
+    .body .button {
+        background: transparent;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    #update-status {
+        padding-left: 0;
+        width: 100%;
+        height: 10%;
+        margin: 0 auto;
+        margin-top: 30px;
+        text-align: center;
+        padding-right: 20%;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .mode-switch.active .moon {
+        fill: var(--main-color);
+    }
+
+    .row {
+        margin: 0;
+        padding: 0;
+        height: 10%
+    }
+
+    .logged-in {
+        color: rgb(68, 210, 68);
+    }
+
+    label {
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+        font-family: sans-serif;
+        border-radius: 0.3rem;
+        cursor: pointer;
+        margin-top: 1rem;
+    }
+
+    button {
+
+        background-color: white;
+        border: transparent;
+    }
+
+    .close {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .close1 {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close1:hover,
+    .close1:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .close2 {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close2:hover,
+    .close2:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-dialog {
+        text-align: center;
+        display: none;
+        font-family: "DM Sans", sans-serif;
+        background-color: #fefefe;
+        overflow: auto;
+        /* Recommended in case content is larger than the container */
+        margin: auto;
+        /* Center the item vertically & horizontally */
+        position: absolute;
+        /* Break it out of the regular flow */
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        width: 40%;
+        height: 20%;
+        min-width: 200px;
+        border-radius: 25px;
+        box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.369);
+    }
+
+    .modal-content {
+        font-family: "DM Sans", sans-serif;
+        background-color: #fefefe;
+    }
+
+    .modal-header {
+        font-weight: 400px;
+        font-family: "DM Sans", sans-serif;
+        background-color: #ffffff;
+        color: rgb(20, 129, 192);
+        text-align: center;
+    }
+
+    .col-lg-6 {
+        border-radius: 10px;
+    }
+
+    .wrapper {
+        border-radius: 10px;
+        width: 90%;
+        padding-right: 20px;
+    }
+
+    table {
+        width: 80%;
+    }
+
+    td .post {
+        height: 130px;
+        max-height: 130px;
+        border-bottom: 25px solid #f3f6fd;
+        border-top: 5px solid #f3f6fd;
+        border-radius: 10px;
+    }
+
+    tr .post {
+        background-color: white;
+        height: 130px;
+        max-height: 130px;
+        border-radius: 10px;
+        border-bottom: 20px solid #f3f6fd;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+    .search-box {
+        transition: width 0.6s, border-radius 0.6s, background 0.6s, box-shadow 0.6s;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        background: #ebebeb;
+    }
+
+    .search-box+label .search-icon {
+        color: black;
+    }
+
+    .search-box:hover {
+        color: white;
+        background: #c8c8c8;
+        box-shadow: 0 0 0 5px #3d4752;
+    }
+
+    .search-box:hover+label .search-icon {
+        color: white;
+    }
+
+    .search-box:focus {
+        transition: width 0.6s cubic-bezier(0, 1.22, 0.66, 1.39), border-radius 0.6s, background 0.6s;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding-left: 15px;
+        cursor: text;
+        width: 150px;
+        border-radius: auto;
+        background: #ebebeb;
+        color: black;
+    }
+
+    .search-box:focus+label .search-icon {
+        color: black;
+    }
+
+    .search-box:not(:focus) {
+        text-indent: -5000px;
+    }
+
+    #search-submit {
+        position: relative;
+        left: -5000px;
+    }
+
+    .search-icon {
+        position: relative;
+        left: -30px;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- DO NOT REMOVE: Maintains online status -->
+<script>
+    window.onbeforeunload = closingCode;
+    function closingCode() {
+        $.post('/onlinestatus', { status: "OFFLINE" }, function () { })
+    }
+    window.onpageshow = openingCode;
+    function openingCode() {
+        $.post('/onlinestatus', { status: "ONLINE" }, function () { })
+    }
+</script>
+
+<script type="text/javascript">
+
+    // for storing the Item IDs of the friends currently displayed
+    var displayedIIDSet = new Set();
+    // the positions in this list should correspond to the positions of the rows in table,
+    // shifted down by 1 (accounting for the table header)
+    var displayedIIDList = [];
+
+    // inserts the item into the table and keeps records in above variables
+    var insertRow = function (infoItem, onlineItem) {
+        var row;
+        var onlineText;
+        var table = document.getElementById("friends");
+
+        var itemid = infoItem.uid + 'X' + onlineItem.online.toString();
+
+        if (onlineItem.online) {  // If online, insert at row 1
+            row = table.insertRow(1);
+            displayedIIDList.unshift(itemid);
+            onlineText = "<a style=\"color:green;\">Yes</a>";
+        } else {  // If offline, insert at bottom of table
+            row = table.insertRow(-1);
+            displayedIIDList.push(itemid);
+            onlineText = "<a style=\"color:red;\">No</a>";
+        }
+
+        displayedIIDSet.add(itemid);
+
+        var username = row.insertCell(0);
+        var firstName = row.insertCell(1);
+        var lastName = row.insertCell(2);
+        var online = row.insertCell(3);
+
+        username.innerHTML = infoItem.username;
+        firstName.innerHTML = infoItem.first_name;
+        lastName.innerHTML = infoItem.last_name;
+        online.innerHTML = onlineText;
+    }
+
+    var renderFriends = function (newInfoList, newOnlineList) {
+        // for storing the new friend item ids
+        var newFriendIIDSet = new Set();
+
+        console.log("Rendering friends...");
+
+        // Iterate through new info
+        for (var i = 0; i < newInfoList.length; i++) {
+            // parse info
+            var curr_infoItem = newInfoList[i].Item;
+            var curr_uid = curr_infoItem.uid;
+
+            var curr_status = newOnlineList[i].Item.online;
+
+            var curr_itemid = curr_uid + 'X' + curr_status.toString();
+
+            // build the new friend UID Set
+            newFriendIIDSet.add(curr_itemid);
+
+            // Check if the current item is displayed
+            if (!displayedIIDSet.has(curr_itemid)) {
+                // Insert the row accordingly
+                insertRow(curr_infoItem, newOnlineList[i].Item);
+            }
+        }
+
+        // Iterate through list of rows to check if any has been removed
+        var table = document.getElementById("friends");
+
+        for (var i = displayedIIDList.length; i > 0; i--) {
+            if (!newFriendIIDSet.has(displayedIIDList[i - 1])) {
+                table.deleteRow(i);
+                displayedIIDList.splice(i, 1);
+            }
+        }
+
+        displayedIIDSet = newFriendIIDSet;
+    };
+
+    var refreshFriends = function () {
+        $.get('/friendsinfo', function (data) {
+            renderFriends(data.friendsInfo, data.online);
+        })
+    };
+
+    refreshFriends();
+    setInterval(refreshFriends, 1000);
+</script>
+
+</head>
+
+<body>
+    <!-- Home section -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home">pennBook.</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/home">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out </a></li>
+                </ul>
+                <form class="navbar-form navbar-right" action="/newssearch">
+                    <div class="form-group input-group">
+                        <input type="text" id="keyword" name="keyword" class="form-control" placeholder="news search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" action="/newssearch">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            <input type="submit" value="Search">
+                        </span>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> My Profile </a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/friendrequests"><i class='fas fa-user-friends'></i></span> Friend Requests </a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/myfriends"><span class="glyphicon glyphicon-user"></span> Friends </a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/friendvisualizer"><span class="glyphicon glyphicon-sunglasses"></span> Visualizer </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--   About me section -->
+
+    <div class="row" id="post">
+        <div class="col-lg-6">
+            <div id="description">
+                <div id="about">
+                    <h4> Intro </h4>
+                    <div class="jumbotron" id="info-spread">
+                        <% if (userinfo.Items[0].avatar.S != null ) { %> 
+                            <img id="main" src= "https://profilephotonets2120.s3.amazonaws.com/<%-userinfo.Items[0].avatar.S%>">
+                        <% } %> 
+                        <br>                
+                        <button type="button" id="myBtn4" data-toggle="photo_modal" data-target="#SignUp">>
+                            <span class="glyphicon glyphicon-picture"></span>
+                         </button>
+                        <div class="col-lg-16">
+                            <div id="profile">
+                                <div id="essential-data">
+                                    <h4>
+                                        <%= userinfo.Items[0].first_name.S%>
+                                            <%= userinfo.Items[0].last_name.S%> <span class="logged-in">●</span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <h2> <strong> Interests: </strong>
+                            <% for( var i=0; i < interests.Count; i++) { %>
+                                <%= interests.Items[i].interest.S %>,
+                                    <% } %>
+                                        <button type="button" id="myBtn3" data-toggle="interest_modal"
+                                            data-target="#SignUp">>
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                        </h2>
+                        <h2> <strong> Affiliation: </strong>
+                            <%= userinfo.Items[0].affiliation.S %>
+                                <button type="button" id="myBtn2" data-toggle="modal">>
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                        </h2>
+                        <h2> <strong> Birthday: </strong>
+                            <%= userinfo.Items[0].birthday.S %>
+                                <button type="button" id="myBtn1" data-toggle="modal1" data-target="#SignUp">>
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                        </h2>
+                        <h2> <strong> Privacy </strong>
+                            <%if(!userinfo.Items[0].privacy.S) {%>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <% } %>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div id="description">
+                <div id="about">
+                    <h4> Online Friends </h4>
+                    <div class="jumbotron" id="info-spread">
+                        <table id="friends" onload="refreshFriends()">
+                            <tr>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Online</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <div class="col-lg-6">
+            <div id="update-status">
+                <h4> Hey <%= userinfo.Items[0].first_name.S%>, what's on your mind? </h4>
+                <div class="jumbotron" id="info-spread">
+                    <div class="wrapper">
+                        <div class="label">What's on your mind?</div>
+                        <div class="searchBar">
+                            <form action="/sendpost" method="post" onSubmit="return noRefresh()">
+                                <p>
+                                    <input type="hidden" name="posttype" value="status" />
+                                    <input id="searchQueryInput" type="text" name="content"
+                                        placeholder="What's on your mind?" value="" />
+                                    <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+                                        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                                    </button>
+                                    <input type="file" id="myFile" name="filename">
+                                    <label for="myFile"> <span class="glyphicon glyphicon-picture"></span>
+                                </p>
+                                </label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h4> Posts </h4>
+            <table id='posts'>
+                <% for(var i=0; i < posts.Count; i++) { %>
+                         <tr class="post">
+                    <tr>
+                        <td class="post">
+                            <p>
+                                <a href="/wall?user=<%-posts.Items[i].sender.S%>">
+                                    <%= posts.Items[i].sender.S %>
+                                </a>
+                                <% if (posts.Items[i].postType.S=='Info-update' ) {%>
+                                    made a status update!
+                                    <%} %>
+                                        <% if (posts.Items[i].receiver.S !='none' ) {%>
+                                            <span class="glyphicon glyphicon-triangle-right"> </span>
+                                            <a href="/wall?user=<%-posts.Items[i].receiver.S%>">
+                                                <%= posts.Items[i].receiver.S %>
+                                            </a>
+                                 <%} %>
+                            </p>
+                            <br>
+                            <%= posts.Items[i].content.S %>    
+                            <% if (posts.Items[i].content.S== "don't I look great!" ) {%>
+                                <img id="main" src= "https://profilephotonets2120.s3.amazonaws.com/aang.png">
+                            <%}%>
+                            <% if (posts.Items[i].content.S== "you look fantastic!" ) {%>
+                                <img id="main" src= "https://profilephotonets2120.s3.amazonaws.com/katara.png">
+                            <%}%>
+
+                           </td>
+                        <td class="post" style="text-align: right; padding-right: 10px;">
+                            <%= posts.Items[i].date.S %>
+                        <td class="post" style= "text-align: bottom">
+                            <form action = "" method = "" onSubmit = "return postComment('<%= posts.Items[i].uid.S %>' , '<%= posts.Items[i].post_id.N %>')">
+                                <input id="comment<%= posts.Items[i].post_id.N %>" type="text" name="comment" placeholder="Write a comment" value="" />
+                                <button id="commentSubmit" type="submit" name="commentSubmit">
+                                    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                                </button>
+                                <button id="commentGet" type="button" name="commentGet" onclick = "getComment('<%= posts.Items[i].uid.S %>' , '<%= posts.Items[i].post_id.N %>')">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                </button>
+                            </form>
+                        </td>
+                        </td>
+                        <tr id = "loadcomment<%= posts.Items[i].post_id.N %>"></tr>
+                    	</tr>
+                    </tr>
+                    <% } %>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" id="post">
+
+
+        <!-- modals -->
+
+        <!-- Modal : Affiliation -->
+        <div id="myModal" class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Edit Affiliation </h2>
+                </div>
+                <div class="modal-body">
+                    <form id="modal_form" action="/updateaffil" method="post">
+                        <label for="affiliation">Affiliation</label><br>
+                        <input type="hidden" name="posttype" value="status" />
+                        <input type="text" id="affiliation" name="affiliation"
+                            value=<%=userinfo.Items[0].affiliation.S%>>
+                        <br>
+                        <input id="submit" type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal : Birthday -->
+        <div id="myModal1" class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close1">&times;</span>
+                    <h2>Edit Birthday </h2>
+                </div>
+                <div class="modal-body">
+                    <form id="modal_form1" action="/updatebirthday" method="post">
+                        <label for="birthday">Birthday:</label><br>
+                        <input type="hidden" name="posttype" value="status" />
+                        <input type="date" id="birthday" name="birthday" value=<%=userinfo.Items[0].birthday.S %> ><br>
+                        <input id="submit" type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+          <!-- Modal : Photo -->
+          <div id="photo_modal" class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close2">&times;</span>
+                    <h2>Edit Avatar </h2>
+                </div>
+                <div class="modal-body">
+                    <form id="photo_form" action="/updateavatar" method="post">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="avatar" id="inlineRadio1" value="aang.png">
+                            <label class="form-check-label" for="inlineRadio1"> 
+                                <img class = "img-select" style = "height: 70px; " src = "https://profilephotonets2120.s3.amazonaws.com/aang.png">
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="avatar" id="inlineRadio1" value="toph.png">
+                            <label class="form-check-label" for="inlineRadio1"> 
+                                <img class = "img-select" style = "height: 70px; " src = "https://profilephotonets2120.s3.amazonaws.com/toph.png">
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="avatar" id="inlineRadio1" value="katara.png">
+                            <label class="form-check-label" for="inlineRadio1"> 
+                                <img class = "img-select" style = "height: 70px; " src = "https://profilephotonets2120.s3.amazonaws.com/katara.png">
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="avatar" id="inlineRadio1" value="zuko.png">
+                            <label class="form-check-label" for="inlineRadio1"> 
+                                <img class = "img-select" style = "height: 70px; " src = "https://profilephotonets2120.s3.amazonaws.com/zuko.png">
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="avatar" id="inlineRadio1" value="appa.png">
+                            <label class="form-check-label" for="inlineRadio1"> 
+                                <img class = "img-select" style = "height: 70px; " src = "https://profilephotonets2120.s3.amazonaws.com/appa.png">
+                            </label>
+                          </div>
+                          <input id="submit" type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Modal : Interests -->
+        <div id="interest_modal" class="modal-dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close2">&times;</span>
+                    <h2>Choose New Interests </h2>
+                </div>
+                <div class="modal-body">
+                    </h3>What are you interested in?</h3>
+                    <form id="interest_form" action="/updateinterest" method="post">
+                        <input type="checkbox" id="PARENTING" name="interests" value="PARENTING">
+                        <label for="PARENTING">PARENTING</label>
+                        <input type="checkbox" id="PARENTS" name="interests" value="PARENTS">
+                        <label for="PARENTS">PARENTS</label>
+                        <input type="checkbox" id="THE-WORLDPOST" name="interests" value="THE WORLDPOST">
+                        <label for="THE-WORLDPOST">THE WORLDPOST</label>
+                        <input type="checkbox" id="WOMEN" name="interests" value="WOMEN">
+                        <label for="WOMEN">WOMEN</label>
+                        <input type="checkbox" id="WEDDINGS" name="interests" value="WEDDINGS">
+                        <label for="WEDDINGS">WEDDINGS</label> <br>
+                        <input type="checkbox" id="GREEN" name="interests" value="GREEN">
+                        <label for="GREEN">GREEN</label>
+                        <input type="checkbox" id="RELIGION" name="interests" value="RELIGION">
+                        <label for="RELIGION">RELIGION</label>
+                        <input type="checkbox" id="BUSINESS" name="interests" value="BUSINESS">
+                        <label for="BUSINESS">BUSINESS</label>
+                        <input type="checkbox" id="ENVIRONMENT" name="interests" value="ENVIRONMENT">
+                        <label for="ENVIRONMENT">ENVIRONMENT</label>
+                        <input type="checkbox" id="SCIENCE" name="interests" value="SCIENCE">
+                        <label for="SCIENCE">SCIENCE</label> <br>
+                        <input type="checkbox" id="ARTS" name="interests" value="ARTS">
+                        <label for="ARTS">ARTS</label>
+                        <input type="checkbox" id="COMEDY" name="interests" value="COMEDY">
+                        <label for="COMEDY">COMEDY</label>
+                        <input type="checkbox" id="COLLEGE" name="interests" value="COLLEGE">
+                        <label for="COLLEGE">COLLEGE</label>
+                        <input type="checkbox" id="WORLD-NEWS" name="interests" value="WORLD NEWS">
+                        <label for="WORLD-NEWS">WORLD NEWS</label>
+                        <input type="checkbox" id="MONEY" name="interests" value="MONEY">
+                        <label for="MONEY">MONEY</label> <br>
+                        <input type="checkbox" id="WEIRD-NEWS" name="interests" value="WEIRD NEWS">
+                        <label for="WEIRD-NEWS">WEIRD NEWS</label>
+                        <input type="checkbox" id="HEALTHY-LIVING" name="interests" value="HEALTHY LIVING">
+                        <label for="HEALTHY-LIVING">HEALTHY LIVING</label>
+                        <input type="checkbox" id="DIVORCE" name="interests" value="DIVORCE">
+                        <label for="DIVORCE">DIVORCE</label>
+                        <input type="checkbox" id="SPORTS" name="interests" value="SPORTS">
+                        <label for="SPORTS">SPORTS</label>
+                        <input type="checkbox" id="EDUCATION" name="interests" value="EDUCATION">
+                        <label for="EDUCATION">EDUCATION</label> <br>
+                        <input type="checkbox" id="HOME-LIVING" name="interests" value="HOME & LIVING">
+                        <label for="HOME-&-LIVING">HOME & LIVING</label>
+                        <input type="checkbox" id="LATINO-VOICES" name="interests" value="LATINO-VOICES">
+                        <label for="LATINO-VOICES">LATINO VOICES</label>
+                        <input type="checkbox" id="ARTS-CULTURE" name="interests" value="ARTS & CULTURE">
+                        <label for="ARTS-CULTURE">ARTS & CULTURE</label>
+                        <input type="checkbox" id="BLACK-VOICES" name="interests" value="BLACK VOICES">
+                        <label for="BLACK-VOICES">BLACK VOICES</label>
+                        <input type="checkbox" id="GOOD-NEWS" name="interests" value="GOOD NEWS">
+                        <label for="GOOD-NEWS">GOOD NEWS</label> <br>
+                        <input type="checkbox" id="IMPACT" name="interests" value="IMPACT">
+                        <label for="IMPACT">IMPACT</label>
+                        <input type="checkbox" id="CRIME" name="interests" value="CRIME">
+                        <label for="CRIME">CRIME</label>
+                        <input type="checkbox" id="TASTE" name="interests" value="TASTE">
+                        <label for="TASTE">TASTE</label>
+                        <input type="checkbox" id="POLITICS" name="interests" value="POLITICS">
+                        <label for="POLITICS">POLITICS</label>
+                        <input type="checkbox" id="STYLE" name="interests" value="STYLE">
+                        <label for="STYLE">STYLE</label> <br>
+                        <input type="checkbox" id="WORLDPOST" name="interests" value="WORLDPOST">
+                        <label for="WORLDPOST">WORLDPOST</label>
+                        <input type="checkbox" id="MEDIA" name="interests" value="MEDIA">
+                        <label for="MEDIA">MEDIA</label>
+                        <input type="checkbox" id="STYLE-BEAUTY" name="interests" value="STYLE & BEAUTY">
+                        <label for="STYLE-&-BEAUTY">STYLE & BEAUTY</label>
+                        <input type="checkbox" id="TECH" name="interests" value="TECH">
+                        <label for="TECH">TECH</label>
+                        <input type="checkbox" id="CULTURE-ARTS" name="interests" value="CULTURE & ARTS">
+                        <label for="CULTURE-&-ARTS">CULTURE & ARTS</label> <br>
+                        <input type="checkbox" id="ENTERTAINMENT" name="interests" value="ENTERTAINMENT">
+                        <label for="ENTERTAINMENT">ENTERTAINMENT</label>
+                        <input type="checkbox" id="QUEER-VOICES" name="interests" value="QUEER VOICES">
+                        <label for="QUEER-VOICES">QUEER VOICES</label>
+                        <input type="checkbox" id="FIFTY" name="interests" value="FIFTY">
+                        <label for="FIFTY">FIFTY</label>
+                        <input type="checkbox" id="FOOD-DRINK" name="interests" value="FOOD & DRINK">
+                        <label for="FOOD-&-DRINK">FOOD & DRINK</label>
+                        <input type="checkbox" id="TRAVEL" name="interests" value="TRAVEL">
+                        <label for="TRAVEL">TRAVEL</label> <br>
+                        <input type="checkbox" id="WELLNESS" name="interests" value="WELLNESS">
+                        <label for="WELLNESS">WELLNESS</label> <br>
+                        <input id="submit" type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+</body>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var uid = '<%-userinfo.Items[0].uid.S%>';
+    var modal1 = document.getElementById("myModal1");
+    var modal_form1 = document.getElementById("modal_form1");
+    var modal = document.getElementById("myModal")
+    var modal_form = document.getElementById("modal_form");
+    var interest_modal = document.getElementById("interest_modal");
+    var interest_form = document.getElementById("interest_form");
+
+
+    // Get the button that opens the modal
+    var btn1 = document.getElementById("myBtn1");
+    // Get the <span> element that closes the modal
+    var span1 = document.getElementsByClassName("close1")[0];
+
+    // When the user clicks the button, open the modal 
+    btn1.onclick = function () {
+        modal1.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span1.onclick = function () {
+        modal1.style.display = "none";
+
+    }
+
+    modal_form1.addEventListener("submit", function (e) {
+        var form = this;
+        if (form.value.birthday == '<%= userinfo.Items[0].birthday %>') {
+            e.preventDefault();
+        }
+    }, false);
+
+    // Get the button that opens the affiliation
+    var btn2 = document.getElementById("myBtn2");
+    // Get the <span> element that closes the modal
+    var span2 = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn2.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span2.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    modal_form.addEventListener("submit", function (e) {
+        var form = this;
+        if (form.value == '') {
+            e.preventDefault();
+        }
+    }, false);
+
+
+    // Get the button that opens the interests
+    var btn3 = document.getElementById("myBtn3");
+    // Get the <span> element that closes the modal
+    var span3 = document.getElementsByClassName("close2")[0];
+
+    // When the user clicks the button, open the modal 
+    btn3.onclick = function () {
+        interest_modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span3.onclick = function () {
+        interest_modal.style.display = "none";
+    }
+
+    interest_form.addEventListener("submit", function (e) {
+        var form = this;
+        if (form.PARENTING.checked + form.PARENTS.checked + form.THE - WORLDPOST.checked + form.WOMEN.checked
+            + form.WEDDINGS.checked + form.GREEN.checked + form.RELIGION.checked + form.BUSINESS.checked
+            + form.ENVIRONMENT.checked + form.SCIENCE.checked + form.ARTS.checked + form.COMEDY.checked
+            + form.COLLEGE.checked + form.WORLD - NEWS.checked + form.MONEY.checked + form.WEIRD - NEWS.checked
+            + form.HEALTHY - LIVING.checked + form.DIVORCE.checked + form.EDUCATION.checked + form.HOME - LIVING.checked
+            + form.COOKING.checked + form.SPORTS.checked + form.LATINO - VOICES.checked + form.ARTS - CULTURE.checked + form.BLACK - VOICES.checked
+            + form.GOOD - NEWS.checked + form.IMPACT.checked + form.CRIME.checked + form.TASTE.checked + form.POLITICS.checked
+            + form.STYLE.checked + form.WORLDPOST.checked + form.MEDIA.checked + form.STYLE - BEAUTY.checked + form.TECH.checked
+            + form.CULTURE - ARTS.checked + form.ENTERTAINMENT.checked + form.QUEER - VOICES.checked + form.FIFTY.checked + form.FOOD - DRINK.checked
+            + form.TRAVEL.checked + form.WELLNESS.checked < 2) {
+            e.preventDefault();
+        }
+    }, false);
+
+    var btn4 = document.getElementById("myBtn4");
+    // Get the <span> element that closes the modal
+    var span4 = document.getElementsByClassName("close4")[0];
+
+    // When the user clicks the button, open the modal 
+    btn4.onclick = function () {
+        photo_modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span4.onclick = function () {
+        photo_modal.style.display = "none";
+    }
+
+    photo_form.addEventListener("submit", function (e) {
+        var form = this;
+        if (form.PARENTING.checked + form.PARENTS.checked + form.THE - WORLDPOST.checked + form.WOMEN.checked
+            + form.WEDDINGS.checked + form.GREEN.checked + form.RELIGION.checked + form.BUSINESS.checked
+            + form.ENVIRONMENT.checked + form.SCIENCE.checked + form.ARTS.checked + form.COMEDY.checked
+            + form.COLLEGE.checked + form.WORLD - NEWS.checked + form.MONEY.checked + form.WEIRD - NEWS.checked
+            + form.HEALTHY - LIVING.checked + form.DIVORCE.checked + form.EDUCATION.checked + form.HOME - LIVING.checked
+            + form.COOKING.checked + form.SPORTS.checked + form.LATINO - VOICES.checked + form.ARTS - CULTURE.checked + form.BLACK - VOICES.checked
+            + form.GOOD - NEWS.checked + form.IMPACT.checked + form.CRIME.checked + form.TASTE.checked + form.POLITICS.checked
+            + form.STYLE.checked + form.WORLDPOST.checked + form.MEDIA.checked + form.STYLE - BEAUTY.checked + form.TECH.checked
+            + form.CULTURE - ARTS.checked + form.ENTERTAINMENT.checked + form.QUEER - VOICES.checked + form.FIFTY.checked + form.FOOD - DRINK.checked
+            + form.TRAVEL.checked + form.WELLNESS.checked < 2) {
+            e.preventDefault();
+        }
+    }, false);
+
+
+    function chatCheck() {
+        $.get('http://localhost:8080/getonlineusers', function (data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].uid == uid) {
+                    $.post('/sendinvite', { uid: uid }, function (data, success) {
+                        window.location.replace("http://localhost:8080/chatmessage");
+                    });
+                }
+            }
+            alert("Unavailable to chat");
+            return false;
+        });
+    }
+
+    var form = document.querySelector("form");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        axios
+            .post("/uploaddp", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    });
+    // document.getElementById("date").innerHTML = m + "/" + d + "/" + y;
+
+    var lastPost = '<%- lastPost%>';
+    var recentPost = '<%- recentPost%>';
+
+
+    function noRefresh() {
+        var toPost = document.getElementById('searchQueryInput').value;
+        if (toPost == "") {
+            return false;
+        }
+        $.post('/sendpost', { content: toPost, posttype: 'status' }, function (data, status) {
+            document.getElementById('searchQueryInput').value = "";
+            return false;
+        });
+        return false;
+
+    }
+
+    window.onscroll = function (ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1) {
+            $.get('/nextpost', { uid: uid, lastPost: lastPost }, function (data) {
+                if (data.length != 0 && data.Items.length != 0) {
+                    lastPost = data.Items[data.Items.length - 1].post_id.N;
+                    for (var i = 0; i < data.Items.length; i++) {
+                        var update = "";
+                        var receiver = "";
+                        if (data.Items[i].postType == 'Info-update') {
+                            update = 'made a status update!'
+                        }
+                        if (data.Items[i].receiver.S != 'none') {
+                            receiver = '<span class =  "glyphicon glyphicon-triangle-right"> </span>  <a href= "/wall?user=' + data.Items[i].receiver.S + '" >' + data.Items[i].receiver.S + ' </a>'
+                        }
+                    document.getElementById("posts").innerHTML += '<td class="post"><p><a href="/wall?user=' + data.Items[i].sender.S + '">' + data.Items[i].sender.S + '</a>' + update + receiver + '</p> <br>' + data.Items[i].content.S + ' </td> <td class="post" style="text-align: right; padding-right: 10px;">' + data.Items[i].date.S + '<td class="post" style= "text-align: bottom"> <form action = "" method = "" onSubmit = "return postComment(\''  + data.Items[i].uid.S + '\', \''+ data.Items[i].post_id.N + '\')"> <input id="comment' +  data.Items[i].post_id.N  + '" type="text" name="comment" placeholder="Write a comment" value="" /><button id="commentSubmit" type="submit" name="commentSubmit"><span class="glyphicon glyphicon-circle-arrow-right"></span></button> <button id="commentGet" type="button" name="commentGet" onclick = "getComment(\''  + data.Items[i].uid.S + '\', \''+ data.Items[i].post_id.N + '\')"><span class="glyphicon glyphicon-comment"></span></button></form></td><tr id = "loadcomment' + data.Items[i].post_id.N + '"></tr>'
+
+                    }
+                }
+
+            });
+        }
+    };
+
+    function getNewPosts() {
+        $.get('/newpost', { uid: uid, recentPost: recentPost }, function (data) {
+            if (data.Items.length != 0) {
+                recentPost = data.Items[data.Items.length - 1].post_id.N;
+                for (var i = 0; i < data.Items.length; i++) {
+                    var update = "";
+                    var receiver = "";
+                    var img = "";
+                 
+                    if (data.Items[i].postType == 'Info-update') {
+                        update = 'made a status update!'
+                    }
+                    if (data.Items[i].receiver.S != 'none') {
+                        receiver = '<span class =  "glyphicon glyphicon-triangle-right"> </span>  <a href= "/wall?user=' + data.Items[i].receiver.S + '" >' + data.Items[i].receiver.S + ' </a>'
+                    }
+                    if (data.Items[i].content.S== "don't I look great!" ) {
+                        img  = '<img id="main" src= "https://profilephotonets2120.s3.amazonaws.com/aang.png">'
+                    }
+                   
+                    document.getElementById('posts').innerHTML =
+
+                        '<tr class = "post" > <tr> <td class = "post"> <p> <a href= "/wall?user=' + data.Items[i].sender.S + '" > ' + data.Items[i].sender.S + '</a>' + update + receiver + '</p> <br>' + data.Items[i].content.S + img + ' </td> <td class = "post" style = "text-align: right; padding-right: 10px;"> ' + data.Items[i].date.S + ' </td> </tr> </tr>' + document.getElementById('posts').innerHTML
+
+                        '<td class="post"><p><a href="/wall?user=' + data.Items[i].sender.S + '">' + data.Items[i].sender.S + '</a>' + update + receiver + '</p> <br>' + data.Items[i].content.S + ' </td> <td class="post" style="text-align: right; padding-right: 10px;">' + data.Items[i].date.S + '<td class="post" style= "text-align: bottom"> <form action = "" method = "" onSubmit = "return postComment(\''  + data.Items[i].uid.S + '\', \''+ data.Items[i].post_id.N + '\')"> <input id="comment' +  data.Items[i].post_id.N  + '" type="text" name="comment" placeholder="Write a comment" value="" /><button id="commentSubmit" type="submit" name="commentSubmit"><span class="glyphicon glyphicon-circle-arrow-right"></span></button> <button id="commentGet" type="button" name="commentGet" onclick = "getComment(\''  + data.Items[i].uid.S + '\', \''+ data.Items[i].post_id.N + '\')"><span class="glyphicon glyphicon-comment"></span></button></form></td><tr id = "loadcomment' + data.Items[i].post_id.N + '"></tr>'+ document.getElementById('posts').innerHTML
+
+
+                    document.getElementById('posts').innerHTML =
+                        '<tr class = "post" > <tr> <td class = "post"> <p> <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar"> <a href= "/wall?user=' + data.Items[i].sender.S + '" > ' + data.Items[i].sender.S + '</a>' + update + receiver + '</p> <br>' + data.Items[i].content.S + ' </td> <td class = "post" style = "text-align: right; padding-right: 10px;"> ' + data.Items[i].date.S + ' </td> </tr> </tr>' + document.getElementById('posts').innerHTML
+
+                }
+            }
+
+        });
+    }
+    
+   
+    
+    function getComment(userid, postid) {
+     	var comment = document.getElementById("comment" + postid).value;
+    	document.getElementById("loadcomment" + postid).innerHTML = '';
+    	$.get('/getcomments', {postuserid: userid, postid: postid}, function(data) {
+    		for(var i = 0; i < data.Items.length; i++) {
+    		    document.getElementById("loadcomment" + postid).innerHTML += '<tr>' + data.Items[i].creator.S + ": " + data.Items[i].content.S + '</tr><br>';
+    		}
+    		});
+    	return false;   
+    
+    }
+    setInterval(getNewPosts, 5000);
+
+</script>
+
+
+</html>
